@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jardín Zen - Karesansui Tradicional</title>
+    <title> Jardín Zen</title>
     <style>
         body { 
             margin: 0; 
             overflow: hidden; 
-          
         }
         #loading-screen {
             position: absolute; 
@@ -16,7 +15,7 @@
             left: 0; 
             width: 100%; 
             height: 100%;
-            background: #2a2520; 
+            background: #1a1a1a; 
             color: #d8cdbc; 
             display: flex; 
             flex-direction: column;
@@ -42,7 +41,7 @@
             top: 20px;
             left: 20px;
             color: #d8cdbc;
-            background: rgba(30,30,30,0.6);
+            background: rgba(20,20,20,0.7);
             padding: 8px 20px;
             border-radius: 30px;
             backdrop-filter: blur(8px);
@@ -57,7 +56,7 @@
             left: 50%;
             transform: translateX(-50%);
             color: #d8cdbc;
-            background: rgba(30,30,30,0.5);
+            background: rgba(20,20,20,0.6);
             padding: 8px 20px;
             border-radius: 40px;
             font-size: 13px;
@@ -74,14 +73,13 @@
             font-size: 14px;
             font-style: italic;
             text-align: right;
-            background: rgba(20,20,20,0.4);
+            background: rgba(20,20,20,0.5);
             padding: 15px 25px;
             border-radius: 8px;
             backdrop-filter: blur(4px);
             border-left: 3px solid #8a7a6a;
             z-index: 100;
             line-height: 1.8;
-            letter-spacing: 0.5px;
         }
         #haiku small {
             font-size: 11px;
@@ -106,7 +104,7 @@
             top: 20px;
             right: 20px;
             color: #b8a88a;
-            background: rgba(20,20,20,0.5);
+            background: rgba(20,20,20,0.6);
             padding: 6px 15px;
             border-radius: 20px;
             font-size: 12px;
@@ -114,32 +112,96 @@
             border: 1px solid rgba(200,180,160,0.2);
             z-index: 100;
         }
-        /* Estilo para el reproductor de música - más discreto */
-        #musica-jardin {
+        
+        /* --- ESTILOS ZEN --- */
+        #rake-controls {
             position: absolute;
-            bottom: 30px;
-            left: 20px;
-            width: 200px;
-            height: 30px;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-            z-index: 100;
-            border-radius: 20px;
-            background: rgba(30,30,30,0.5);
+            top: 80px;
+            right: 20px;
+            background: rgba(20,20,20,0.8);
             backdrop-filter: blur(8px);
+            padding: 15px;
+            border-radius: 15px;
             border: 1px solid rgba(200,180,160,0.2);
-        }
-        #musica-jardin:hover {
-            opacity: 1;
-        }
-        /* Para que el reproductor sea más pequeño y elegante */
-        #musica-jardin::-webkit-media-controls-panel {
-            background: rgba(30,30,30,0.8);
-            border-radius: 20px;
-        }
-        #musica-jardin::-webkit-media-controls-current-time-display,
-        #musica-jardin::-webkit-media-controls-time-remaining-display {
             color: #d8cdbc;
+            z-index: 100;
+            font-size: 13px;
+            width: 160px;
+        }
+        #rake-controls h3 {
+            margin: 0 0 10px 0;
+            text-align: center;
+            font-weight: normal;
+            border-bottom: 1px solid #5a4a3a;
+            padding-bottom: 5px;
+        }
+        #rake-controls input[type="range"] {
+            width: 100%;
+            margin-bottom: 15px;
+            background: #5a4a3a;
+            accent-color: #b8a88a;
+        }
+        #rake-controls button {
+            width: 100%;
+            padding: 8px;
+            background: transparent;
+            border: 1px solid #b8a88a;
+            color: #b8a88a;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+        #rake-controls button:hover {
+            background: rgba(184,168,138,0.2);
+        }
+        #rake-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4a8f4a;
+            margin-left: 5px;
+            box-shadow: 0 0 5px #4a8f4a;
+        }
+        
+        #music-button {
+            position: absolute;
+            bottom: 70px;
+            left: 20px;
+            background: rgba(20,20,20,0.8);
+            backdrop-filter: blur(8px);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(200,180,160,0.2);
+            color: #d8cdbc;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 101;
+        }
+        #music-button:hover {
+            background: rgba(40,40,40,0.9);
+        }
+        #music-button.playing {
+            background: rgba(70,90,70,0.8);
+        }
+        
+        #zen-quote {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            color: #8a7a6a;
+            font-size: 11px;
+            letter-spacing: 5px;
+            background: rgba(20,20,20,0.4);
+            padding: 15px 5px;
+            border-radius: 30px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(200,180,160,0.2);
+            z-index: 100;
         }
     </style>
 </head>
@@ -147,19 +209,31 @@
 
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p style="font-size: 11px; color: #9a8a7a; margin-top: 30px;">cargando elementos zen...</p>
+       
     </div>
     
-    <div id="info"> Jardín Zen </div>
-    <div id="instrucciones">🖱️  arrastra para contemplar  •  🖱️  rueda para respirar</div>
+    <div id="info">  Jardín Zen </div>
+    
+    
+    <div id="instrucciones">🖱️ Izquierdo: mover  •  🖱️ Derecho + arrastrar: rastrillar  •  🖱️ Rueda: zoom</div>
 
-    <!-- Reproductor de música con el nombre CORRECTO del archivo -->
-    <audio id="musica-jardin" loop controls preload="auto">
-        <source src="Music Zen Garden [CH6WkQcRBZA].mp3" type="audio/mpeg">
-        <!-- Si también tienes versión .ogg, descomenta la siguiente línea -->
-        <!-- <source src="Music Zen Garden [CH6WkQcRBZA].ogg" type="audio/ogg"> -->
-        Tu navegador no soporta el elemento de audio.
+    <div id="haiku">
+        
+        <small>— hasta la flor del musgo en la piedra es zen</small>
+    </div>
+
+    <audio id="musica-jardin" loop preload="auto">
+        <source src="model-zen/music zen garden.mp3" type="audio/mpeg">
     </audio>
+
+    <button id="music-button">🔈 Música Zen</button>
+
+    <div id="rake-controls">
+        <h3> Rastrillo <span id="rake-status"></span></h3>
+        <label for="rake-size">Tamaño: <span id="size-value">3</span></label>
+        <input type="range" id="rake-size" min="1" max="8" value="3" step="0.5">
+        <button id="clear-sand"> Limpiar</button>
+    </div>
 
     <div id="error-message"></div>
 
@@ -177,13 +251,13 @@
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-        // --- CONFIGURACIÓN ZEN ---
+        // --- CONFIGURACIÓN ZEN (Fondo oscuro tradicional) ---
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x2a2520); // Gris oscuro cálido (sumi)
-        scene.fog = new THREE.FogExp2(0x2a2520, 0.025); // Niebla meditativa
+        scene.background = new THREE.Color(0x1a1a1a); // Fondo oscuro zen
+        scene.fog = new THREE.FogExp2(0x1a1a1a, 0.015); // Niebla meditativa
 
         const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(6, 3.5, 8); // Vista más cercana e íntima
+        camera.position.set(6, 3.5, 8);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -192,215 +266,350 @@
         renderer.shadowMap.bias = 0.0002;
         renderer.toneMapping = THREE.ReinhardToneMapping;
         renderer.toneMappingExposure = 0.9;
-        renderer.outputEncoding = THREE.sRGBEncoding;
         document.body.appendChild(renderer.domElement);
 
         // --- CONTROLES MEDITATIVOS ---
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.03;
-        controls.maxPolarAngle = Math.PI / 2.5; // Vista más baja, más respetuosa
+        controls.maxPolarAngle = Math.PI / 2.5;
         controls.minDistance = 3;
         controls.maxDistance = 15;
         controls.target.set(0, 0.2, 0);
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.15; // Extremadamente lento
+        controls.autoRotateSpeed = 0.08; // Más lento para meditación
         controls.enableZoom = true;
         controls.zoomSpeed = 0.5;
-        controls.enablePan = false; // Sin pan para mantener composición
+        controls.enablePan = false;
 
-        // --- ILUMINACIÓN ZEN (luz de luna filtrada) ---
-        const ambientLight = new THREE.AmbientLight(0x6a5a4a);
+        // --- ILUMINACIÓN LUNA (zen auténtico) ---
+        const ambientLight = new THREE.AmbientLight(0x5a5a5a, 0.5);
         scene.add(ambientLight);
 
-        // Luz principal (luna)
-        const moonLight = new THREE.DirectionalLight(0xd8cdbc, 0.8);
+        const moonLight = new THREE.DirectionalLight(0xc0b8a8, 0.8);
         moonLight.position.set(-5, 8, 10);
         moonLight.castShadow = true;
         moonLight.receiveShadow = true;
-        moonLight.shadow.mapSize.width = 1024;
-        moonLight.shadow.mapSize.height = 1024;
-        moonLight.shadow.camera.near = 1;
-        moonLight.shadow.camera.far = 20;
-        moonLight.shadow.camera.left = -6;
-        moonLight.shadow.camera.right = 6;
-        moonLight.shadow.camera.top = 6;
-        moonLight.shadow.camera.bottom = -6;
-        moonLight.shadow.bias = -0.0003;
         scene.add(moonLight);
 
-        // Luz secundaria (reflejo en la arena)
-        const fillLight = new THREE.DirectionalLight(0xb8a88a, 0.3);
+        const fillLight = new THREE.DirectionalLight(0xa89888, 0.3);
         fillLight.position.set(5, 4, -8);
         scene.add(fillLight);
 
-        // Pequeña luz para resaltar el centro
-        const centerGlow = new THREE.PointLight(0xa89878, 0.2, 8);
-        centerGlow.position.set(0, 1, 0);
-        scene.add(centerGlow);
-
-        // --- SUELO DE ARENA BLANCA (shirasuna) - elemento sagrado ---
-        const createZenSandTexture = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 2048;
-            canvas.height = 2048;
-            const ctx = canvas.getContext('2d');
-            
-            // Base de arena blanca
-            ctx.fillStyle = '#e8e0d0';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Textura de grano ultrafino
-            for (let i = 0; i < 30000; i++) {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * canvas.height;
-                const alpha = Math.random() * 0.15;
-                ctx.fillStyle = `rgba(160, 140, 120, ${alpha})`;
-                ctx.fillRect(x, y, 1, 1);
+        // ============================================================
+        // MÚSICA
+        // ============================================================
+        
+        const audio = document.getElementById('musica-jardin');
+        const musicButton = document.getElementById('music-button');
+        let musicStarted = false;
+        
+        audio.volume = 0.4;
+        
+        function startMusic() {
+            if (!musicStarted) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                    musicButton.textContent = '🔊 Música Zen';
+                    musicButton.classList.add('playing');
+                }).catch(() => {});
             }
-            
-            // Patrón de ondas concéntricas (rastrillado zen)
-            ctx.strokeStyle = 'rgba(140, 120, 100, 0.3)';
-            ctx.lineWidth = 6;
-            
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            
-            // Ondas principales
-            for (let r = 200; r < 1000; r += 150) {
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
-                ctx.stroke();
+        }
+        
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicButton.textContent = '🔊 Música Zen';
+                musicButton.classList.add('playing');
+            } else {
+                audio.pause();
+                musicButton.textContent = '🔈 Música Zen';
+                musicButton.classList.remove('playing');
             }
-            
-            // Ondas alrededor de piedras (simuladas)
-            const stoneSpots = [
-                [centerX + 250, centerY + 150],
-                [centerX - 200, centerY - 180],
-                [centerX + 150, centerY - 220],
-                [centerX - 180, centerY + 200],
-                [centerX + 300, centerY - 100]
-            ];
-            
-            stoneSpots.forEach(pos => {
-                for (let r = 80; r < 200; r += 50) {
-                    ctx.beginPath();
-                    ctx.arc(pos[0], pos[1], r, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(130, 110, 90, 0.2)`;
-                    ctx.stroke();
-                }
-            });
-            
-            return new THREE.CanvasTexture(canvas);
+        }
+        
+        musicButton.addEventListener('click', toggleMusic);
+        
+        const startMusicOnInteraction = () => {
+            startMusic();
+            renderer.domElement.removeEventListener('click', startMusicOnInteraction);
+            renderer.domElement.removeEventListener('mousedown', startMusicOnInteraction);
         };
+        
+        renderer.domElement.addEventListener('click', startMusicOnInteraction);
+        renderer.domElement.addEventListener('mousedown', startMusicOnInteraction);
 
+        // ============================================================
+        // ARENA ZEN (textura mejorada)
+        // ============================================================
+        
+        const sandCanvas = document.createElement('canvas');
+        sandCanvas.width = 1024;
+        sandCanvas.height = 1024;
+        const sandCtx = sandCanvas.getContext('2d');
+        
+        function initSandTexture() {
+            // Base de arena (color más natural)
+            sandCtx.fillStyle = '#e8ddcc';
+            sandCtx.fillRect(0, 0, sandCanvas.width, sandCanvas.height);
+            
+            // Grano fino (más sutil)
+            for (let i = 0; i < 15000; i++) {
+                const x = Math.random() * sandCanvas.width;
+                const y = Math.random() * sandCanvas.height;
+                const alpha = Math.random() * 0.08;
+                sandCtx.fillStyle = `rgba(140, 120, 100, ${alpha})`;
+                sandCtx.fillRect(x, y, 1, 1);
+            }
+            
+            // Ondas concéntricas orgánicas (más sutiles)
+            sandCtx.strokeStyle = 'rgba(140, 120, 100, 0.2)';
+            sandCtx.lineWidth = 3;
+            
+            const centerX = sandCanvas.width / 2;
+            const centerY = sandCanvas.height / 2;
+            
+            for (let r = 200; r < 900; r += 100) {
+                sandCtx.beginPath();
+                sandCtx.arc(centerX, centerY, r, 0, Math.PI * 2);
+                sandCtx.stroke();
+            }
+        }
+        
+        initSandTexture();
+        const sandTexture = new THREE.CanvasTexture(sandCanvas);
+        
         const groundGeo = new THREE.CircleGeometry(9, 128);
         const groundMat = new THREE.MeshStandardMaterial({ 
-            map: createZenSandTexture(),
-            color: 0xe8e0d0,
+            map: sandTexture,
+            color: 0xe8ddcc,
             roughness: 0.95,
-            metalness: 0,
-            emissive: 0x000000
+            metalness: 0
         });
         const ground = new THREE.Mesh(groundGeo, groundMat);
         ground.rotation.x = -Math.PI / 2;
         ground.position.y = 0;
         ground.receiveShadow = true;
         scene.add(ground);
+        
+        // Variables para rastrillar
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let isDragging = false;
+        let lastPos = { x: 0, y: 0 };
+        const groundObject = ground;
+        
+        const rakeSizeInput = document.getElementById('rake-size');
+        const sizeValueSpan = document.getElementById('size-value');
+        const clearButton = document.getElementById('clear-sand');
+        const statusIndicator = document.getElementById('rake-status');
+        
+        let brushSize = 3;
+        
+        rakeSizeInput.addEventListener('input', (e) => {
+            brushSize = parseFloat(e.target.value);
+            sizeValueSpan.textContent = brushSize;
+        });
+        
+        clearButton.addEventListener('click', () => {
+            initSandTexture();
+            sandTexture.needsUpdate = true;
+        });
+        
+        function drawOnSand(x, z) {
+            const canvasX = ((x / 9) + 1) * 512;
+            const canvasY = ((z / 9) + 1) * 512;
+            
+            if (canvasX >= 0 && canvasX <= sandCanvas.width && canvasY >= 0 && canvasY <= sandCanvas.height) {
+                
+                // Surco del rastrillo (más sutil)
+                sandCtx.beginPath();
+                sandCtx.arc(canvasX, canvasY, brushSize, 0, Math.PI * 2);
+                sandCtx.fillStyle = 'rgba(100, 80, 60, 0.3)';
+                sandCtx.fill();
+                
+                if (lastPos.x !== 0 && lastPos.y !== 0) {
+                    sandCtx.beginPath();
+                    sandCtx.moveTo(lastPos.x, lastPos.y);
+                    sandCtx.lineTo(canvasX, canvasY);
+                    sandCtx.strokeStyle = 'rgba(80, 60, 40, 0.4)';
+                    sandCtx.lineWidth = brushSize;
+                    sandCtx.stroke();
+                }
+                
+                lastPos.x = canvasX;
+                lastPos.y = canvasY;
+                sandTexture.needsUpdate = true;
+            }
+        }
 
-        // --- GRAVA FINA (piedras pequeñas) ---
+        // ============================================================
+        // ELEMENTOS ZEN (mínimos pero esenciales)
+        // ============================================================
+        
+        // Grava fina (solo alrededor de piedras grandes)
         const gravelGeo = new THREE.BufferGeometry();
-        const gravelCount = 300;
+        const gravelCount = 100;
         const gravelPositions = new Float32Array(gravelCount * 3);
         
         for (let i = 0; i < gravelCount; i++) {
             const angle = Math.random() * Math.PI * 2;
             const radius = Math.random() * 8 + 0.5;
             gravelPositions[i * 3] = Math.cos(angle) * radius;
-            gravelPositions[i * 3 + 1] = 0.02 + Math.random() * 0.03;
+            gravelPositions[i * 3 + 1] = 0.02;
             gravelPositions[i * 3 + 2] = Math.sin(angle) * radius;
         }
         
         gravelGeo.setAttribute('position', new THREE.BufferAttribute(gravelPositions, 3));
-        const gravelMat = new THREE.PointsMaterial({ 
-            color: 0xc0b0a0, 
-            size: 0.03,
-            sizeAttenuation: true,
-            transparent: true,
-            opacity: 0.6
-        });
+        const gravelMat = new THREE.PointsMaterial({ color: 0xb0a090, size: 0.03, transparent: true, opacity: 0.4 });
         const gravel = new THREE.Points(gravelGeo, gravelMat);
         scene.add(gravel);
 
-        // --- PASTO (hierba alrededor del jardín) ---
+        // Pasto solo en bordes exteriores (mínimo)
         function createGrassBlade(x, z) {
-            const height = 0.2 + Math.random() * 0.3;
-            const width = 0.02;
-            const geometry = new THREE.ConeGeometry(width, height, 3);
+            const height = 0.1 + Math.random() * 0.15;
+            const geometry = new THREE.ConeGeometry(0.015, height, 3);
             const material = new THREE.MeshStandardMaterial({ 
-                color: new THREE.Color().setHSL(0.3, 0.6, 0.25 + Math.random() * 0.1),
-                roughness: 0.8
+                color: new THREE.Color().setHSL(0.3, 0.4, 0.15),
+                roughness: 0.9
             });
             const blade = new THREE.Mesh(geometry, material);
-            
-            // Rotación aleatoria para que parezca natural
-            blade.rotation.x = (Math.random() - 0.5) * 0.2;
-            blade.rotation.z = (Math.random() - 0.5) * 0.2;
-            
             blade.position.set(x, height/2, z);
             blade.castShadow = true;
             blade.receiveShadow = true;
-            
             return blade;
         }
 
-        // Crear un anillo de pasto alrededor del círculo de arena
-        const grassRadius = 9.5;
-        const grassCount = 400;
-        
-        for (let i = 0; i < grassCount; i++) {
+        for (let i = 0; i < 80; i++) {
             const angle = Math.random() * Math.PI * 2;
-            // Distribuir el pasto en un anillo alrededor del jardín
-            const radius = grassRadius + (Math.random() - 0.5) * 1.5;
+            const radius = 9.3 + Math.random() * 1.2;
             const x = Math.cos(angle) * radius;
             const z = Math.sin(angle) * radius;
-            
-            const blade = createGrassBlade(x, z);
-            scene.add(blade);
+            scene.add(createGrassBlade(x, z));
         }
 
-        // Añadir pasto también en los espacios entre los bambúes
-        for (let i = 0; i < 200; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 7 + Math.random() * 2.5;
-            const x = Math.cos(angle) * radius;
-            const z = Math.sin(angle) * radius;
+        // Bambú (solo 4 grupos, mínimos)
+        function createBamboo(pos, height = 1.5) {
+            const group = new THREE.Group();
+            const mat = new THREE.MeshStandardMaterial({ color: 0x6a7a4a, roughness: 0.8 });
             
-            // Solo poner pasto donde no hay arena (fuera del círculo principal)
-            if (Math.sqrt(x*x + z*z) > 8.5) {
-                const blade = createGrassBlade(x, z);
-                scene.add(blade);
+            for (let i = 0; i < 3; i++) {
+                const geo = new THREE.CylinderGeometry(0.08, 0.1, height, 5);
+                const segment = new THREE.Mesh(geo, mat);
+                segment.position.y = height/2;
+                segment.castShadow = true;
+                group.add(segment);
             }
+            
+            group.position.set(pos.x, 0, pos.z);
+            return group;
         }
 
-        // --- CARGA DE MODELOS ---
+        const bambooPositions = [[-6, -5], [6, -5], [-6, 5], [6, 5]];
+        bambooPositions.forEach(pos => {
+            scene.add(createBamboo({x: pos[0], z: pos[1]}, 1.5));
+        });
+
+        // Linternas de piedra (solo 2, para no saturar)
+        function createStoneLantern(pos) {
+            const group = new THREE.Group();
+            const mat = new THREE.MeshStandardMaterial({ color: 0x8a7a6a, roughness: 0.95 });
+            
+            const base = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.35, 0.15, 6), mat);
+            base.position.y = 0.08;
+            base.castShadow = true;
+            group.add(base);
+            
+            const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 0.6, 6), mat);
+            pillar.position.y = 0.5;
+            pillar.castShadow = true;
+            group.add(pillar);
+            
+            const box = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.2, 0.3), mat);
+            box.position.y = 1.0;
+            box.castShadow = true;
+            group.add(box);
+            
+            const roof = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.15, 4), mat);
+            roof.position.y = 1.2;
+            roof.rotation.y = Math.PI/4;
+            roof.castShadow = true;
+            group.add(roof);
+            
+            group.position.set(pos.x, 0, pos.z);
+            return group;
+        }
+
+        scene.add(createStoneLantern({x: -3, z: 3}));
+        scene.add(createStoneLantern({x: 3.5, z: -3}));
+
+        // Camino de piedras (mínimo)
+        const pathStones = [[-1, 0.02, 1.2], [1, 0.02, -1], [2, 0.02, 0.8], [-1.5, 0.02, -0.8]];
+        pathStones.forEach(pos => {
+            const stoneGeo = new THREE.CylinderGeometry(0.25, 0.27, 0.04, 5);
+            const stoneMat = new THREE.MeshStandardMaterial({ color: 0x8a7a6a, roughness: 0.9 });
+            const stone = new THREE.Mesh(stoneGeo, stoneMat);
+            stone.position.set(pos[0], 0.02, pos[2]);
+            stone.receiveShadow = true;
+            stone.castShadow = true;
+            scene.add(stone);
+        });
+
+        // Musgo SOLO alrededor de piedras (no en toda la arena)
+        const mossGeo = new THREE.BufferGeometry();
+        const mossCount = 60;
+        const mossPositions = new Float32Array(mossCount * 3);
+        
+        for (let i = 0; i < mossCount; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 2 + Math.random() * 3;
+            mossPositions[i * 3] = Math.cos(angle) * radius;
+            mossPositions[i * 3 + 1] = 0.01;
+            mossPositions[i * 3 + 2] = Math.sin(angle) * radius;
+        }
+        
+        mossGeo.setAttribute('position', new THREE.BufferAttribute(mossPositions, 3));
+        const mossMat = new THREE.PointsMaterial({ color: 0x5a6a4a, size: 0.06, transparent: true, opacity: 0.3 });
+        const moss = new THREE.Points(mossGeo, mossMat);
+        scene.add(moss);
+
+        // Montañas al fondo (más sutiles)
+        const mountainMat = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: 1 });
+        const mountain1 = new THREE.Mesh(new THREE.ConeGeometry(2, 2.5, 5), mountainMat);
+        mountain1.position.set(-7, -1, -14);
+        scene.add(mountain1);
+        
+        const mountain2 = new THREE.Mesh(new THREE.ConeGeometry(1.8, 2.2, 5), mountainMat);
+        mountain2.position.set(6, -1, -15);
+        scene.add(mountain2);
+
+        // Borde de cuerda (sutil)
+        const ropeRadius = 8.5;
+        const ropePoints = [];
+        for (let i = 0; i <= 50; i++) {
+            const angle = (i / 50) * Math.PI * 2;
+            ropePoints.push(new THREE.Vector3(Math.cos(angle) * ropeRadius, 0.06, Math.sin(angle) * ropeRadius));
+        }
+        const ropeLine = new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints(ropePoints),
+            new THREE.LineBasicMaterial({ color: 0x7a6a5a })
+        );
+        scene.add(ropeLine);
+
+        // ============================================================
+        // CARGA DE MODELOS (tus modelos)
+        // ============================================================
+        
         let modelosCargados = 0;
-        const totalModelos = 24; // Reducido porque quitamos los puentes
+        const totalModelos = 24;
         let errores = [];
 
         function verificarCargaCompleta() {
             modelosCargados++;
             if (modelosCargados >= totalModelos) {
                 setTimeout(() => {
-                    const screen = document.getElementById('loading-screen');
-                    screen.style.opacity = '0';
-                    setTimeout(() => screen.remove(), 1000);
-                    
-                    if (errores.length > 0) {
-                        const errorDiv = document.getElementById('error-message');
-                        errorDiv.style.display = 'block';
-                        errorDiv.innerHTML = '⚠️ algunos modelos no se cargaron:<br>' + errores.join('<br>');
-                    }
+                    document.getElementById('loading-screen').style.opacity = '0';
+                    setTimeout(() => document.getElementById('loading-screen').remove(), 1000);
                 }, 800);
             }
         }
@@ -408,9 +617,7 @@
         const loader = new GLTFLoader();
 
         const loadModel = (filename, pos, scale = 1, rot = 0) => {
-            const ruta = `model-zen/${filename}`;
-            
-            loader.load(ruta, (gltf) => {
+            loader.load(`model-zen/${filename}`, (gltf) => {
                 const model = gltf.scene;
                 model.position.set(pos.x, pos.y, pos.z);
                 model.scale.set(scale, scale, scale);
@@ -420,274 +627,132 @@
                     if (n.isMesh) {
                         n.castShadow = true;
                         n.receiveShadow = true;
-                        if (n.material) {
-                            n.material.roughness = 0.9;
-                            n.material.metalness = 0;
-                            n.material.emissive = new THREE.Color(0x000000);
-                            if (Array.isArray(n.material)) {
-                                n.material.forEach(m => {
-                                    m.roughness = 0.9;
-                                    m.metalness = 0;
-                                });
-                            }
-                        }
                     }
                 });
                 
                 scene.add(model);
                 console.log(`✅ ${filename}`);
                 verificarCargaCompleta();
-            }, 
-            undefined, 
-            (error) => {
+            }, undefined, (error) => {
                 console.error(`❌ ${filename}:`, error);
-                errores.push(`❌ ${filename}`);
+                errores.push(filename);
                 verificarCargaCompleta();
             });
         };
 
-        // ===== COMPOSICIÓN TRADICIONAL JAPONESA =====
-        // Números impares, asimetría, vacío
-
-        // --- ELEMENTO CENTRAL (bonsái pequeño y modesto) ---
+        // Tus modelos (exactamente como los tienes)
         loadModel('Flower Pot.glb', {x: 0, y: 0, z: 0}, 0.5);
         loadModel('Wood Log.glb', {x: 0, y: 0.2, z: 0}, 0.45);
-
-        // --- ROCAS PRINCIPALES (siete rocas - número sagrado) ---
-        // Grupo 1 (tres rocas)
-        loadModel('Rock.glb', {x: 2.2, y: 0, z: 1.2}, 0.5, 0.8);
-        loadModel('Rock.glb', {x: 2.8, y: 0, z: 1.8}, 0.35, 1.5);
-        loadModel('Rock.glb', {x: 1.6, y: 0, z: 2.0}, 0.3, 2.2);
-
-        // Grupo 2 (tres rocas)
-        loadModel('Rock.glb', {x: -2.0, y: 0, z: -1.5}, 0.55, 0.3);
-        loadModel('Rock.glb', {x: -2.7, y: 0, z: -2.2}, 0.4, 1.8);
-        loadModel('Rock.glb', {x: -1.3, y: 0, z: -2.3}, 0.25, 2.5);
-
-        // Roca solitaria (la séptima)
-        loadModel('Rock.glb', {x: 0.8, y: 0, z: -2.5}, 0.35, 0.9);
-
-        // Rocas pequeñas adicionales
-        loadModel('Rock.glb', {x: 3.2, y: 0, z: -1.0}, 0.3, 0.5);
-        loadModel('Rock.glb', {x: -2.5, y: 0, z: 2.2}, 0.25, 2.0);
-        loadModel('Rock.glb', {x: 1.5, y: 0, z: -1.0}, 0.2, 1.2);
-
-        // --- BAMBÚ (protección, escalas reducidas) ---
-        // Esquina noreste
-        loadModel('Bamboo.glb', {x: -4.5, y: 0, z: -4.0}, 0.6, 0.1);
-        loadModel('Bamboo.glb', {x: -4.0, y: 0, z: -4.5}, 0.7, 0.3);
-        loadModel('Bamboo.glb', {x: -3.5, y: 0, z: -4.8}, 0.5, 0.5);
         
-        // Esquina noroeste
-        loadModel('Bamboo.glb', {x: 4.5, y: 0, z: -4.0}, 0.65, 2.8);
-        loadModel('Bamboo.glb', {x: 4.0, y: 0, z: -4.5}, 0.75, 3.0);
-        loadModel('Bamboo.glb', {x: 3.5, y: 0, z: -4.8}, 0.55, 2.5);
-        
-        // Esquina sureste
-        loadModel('Bamboo.glb', {x: -4.5, y: 0, z: 4.0}, 0.6, 1.2);
-        loadModel('Bamboo.glb', {x: -4.0, y: 0, z: 4.5}, 0.7, 1.5);
-        
-        // Esquina suroeste
-        loadModel('Bamboo.glb', {x: 4.5, y: 0, z: 4.0}, 0.65, 2.0);
-        loadModel('Bamboo.glb', {x: 4.0, y: 0, z: 4.5}, 0.55, 2.2);
-
-        // --- ÁRBOLES MINIATURA (muy pequeños, solo como acento) ---
-        loadModel('Tree.glb', {x: -3.2, y: 0, z: 2.8}, 0.35, 1.2);
-        loadModel('Tree.glb', {x: 3.5, y: 0, z: 2.5}, 0.3, 2.5);
-
-        // --- ARBUSTOS (musgo simulado, muy bajos) ---
-        loadModel('Bush.glb', {x: -2.8, y: 0, z: -3.2}, 0.25, 0.5);
-        loadModel('Bush.glb', {x: 3.0, y: 0, z: -2.8}, 0.3, 1.5);
-        loadModel('Bush.glb', {x: -1.5, y: 0, z: 3.5}, 0.2, 2.0);
-        loadModel('Bush.glb', {x: 2.0, y: 0, z: 3.2}, 0.25, 0.8);
-        loadModel('Bush.glb', {x: -3.5, y: 0, z: 1.2}, 0.2, 1.0);
-        loadModel('Bush.glb', {x: 3.8, y: 0, z: -1.5}, 0.25, 2.5);
-
-        // ===== ELEMENTOS TRADICIONALES CREADOS PROCEDURALMENTE =====
-
-        // 1. LINTERNTA DE PIEDRA (Tōrō) - más auténtica
-        function createStoneLantern(pos) {
-            const group = new THREE.Group();
-            const stoneMat = new THREE.MeshStandardMaterial({ color: 0x8a7a6a, roughness: 0.95 });
-            
-            // Base (kiso)
-            const base = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 0.15, 6), stoneMat);
-            base.position.y = 0.08;
-            base.castShadow = true;
-            base.receiveShadow = true;
-            group.add(base);
-            
-            // Pilar (sao)
-            const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.18, 0.7, 6), stoneMat);
-            pillar.position.y = 0.5;
-            pillar.castShadow = true;
-            pillar.receiveShadow = true;
-            group.add(pillar);
-            
-            // Caja de fuego (hibukuro)
-            const box = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.25, 0.4), stoneMat);
-            box.position.y = 1.0;
-            box.castShadow = true;
-            box.receiveShadow = true;
-            group.add(box);
-            
-            // Techo (kasa)
-            const roof = new THREE.Mesh(new THREE.ConeGeometry(0.35, 0.2, 4), stoneMat);
-            roof.position.y = 1.25;
-            roof.rotation.y = Math.PI/4;
-            roof.castShadow = true;
-            roof.receiveShadow = true;
-            group.add(roof);
-            
-            // Flor de loto (hōju)
-            const top = new THREE.Mesh(new THREE.SphereGeometry(0.1, 5), stoneMat);
-            top.position.y = 1.45;
-            top.castShadow = true;
-            group.add(top);
-            
-            group.position.set(pos.x, 0, pos.z);
-            return group;
-        }
-
-        // Colocar linternas en posiciones estratégicas
-        scene.add(createStoneLantern({x: -2.0, z: 3.0}));
-        scene.add(createStoneLantern({x: 2.5, z: -2.8}));
-        scene.add(createStoneLantern({x: -3.2, z: -2.0}));
-
-        // 2. PIEDRAS PLANAS (tobi-ishi) - camino de piedras
-        const flatStoneMat = new THREE.MeshStandardMaterial({ color: 0x8a7a6a, roughness: 0.9 });
-        const stonePath = [
-            [-1.0, 0.02, 1.2], [0.8, 0.02, -1.0], [1.8, 0.02, 0.6], 
-            [-1.5, 0.02, -0.8], [0.3, 0.02, -1.8], [-0.6, 0.02, 1.8],
-            [-2.0, 0.02, 1.5], [2.2, 0.02, -1.2], [-1.2, 0.02, -2.0],
-            [1.2, 0.02, 2.0], [-2.2, 0.02, -1.5], [1.5, 0.02, -1.8]
+        const rockPositions = [
+            [2.2, 1.2, 0.5], [2.8, 1.8, 0.35], [1.6, 2.0, 0.3],
+            [-2.0, -1.5, 0.55], [-2.7, -2.2, 0.4], [-1.3, -2.3, 0.25],
+            [0.8, -2.5, 0.35], [3.2, -1.0, 0.3], [-2.5, 2.2, 0.25], [1.5, -1.0, 0.2]
         ];
         
-        stonePath.forEach(pos => {
-            const stoneGeo = new THREE.CylinderGeometry(0.25, 0.28, 0.03, 5);
-            const stone = new THREE.Mesh(stoneGeo, flatStoneMat);
-            stone.position.set(pos[0], 0.02, pos[2]);
-            stone.rotation.y = Math.random() * Math.PI;
-            stone.receiveShadow = true;
-            stone.castShadow = true;
-            scene.add(stone);
+        rockPositions.forEach((pos, i) => {
+            loadModel('Rock.glb', {x: pos[0], y: 0, z: pos[1]}, pos[2], i * 0.5);
         });
 
-        // 3. MUSGO (pequeños parches verdes)
-        const mossGeo = new THREE.BufferGeometry();
-        const mossCount = 150;
-        const mossPositions = new Float32Array(mossCount * 3);
+        const bambooList = [
+            [-4.5, -4.0, 0.6], [-4.0, -4.5, 0.7], [-3.5, -4.8, 0.5],
+            [4.5, -4.0, 0.65], [4.0, -4.5, 0.75], [3.5, -4.8, 0.55],
+            [-4.5, 4.0, 0.6], [-4.0, 4.5, 0.7], [4.5, 4.0, 0.65], [4.0, 4.5, 0.55]
+        ];
         
-        for (let i = 0; i < mossCount; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = Math.random() * 7;
-            mossPositions[i * 3] = Math.cos(angle) * radius;
-            mossPositions[i * 3 + 1] = 0.01;
-            mossPositions[i * 3 + 2] = Math.sin(angle) * radius;
-        }
-        
-        mossGeo.setAttribute('position', new THREE.BufferAttribute(mossPositions, 3));
-        const mossMat = new THREE.PointsMaterial({ 
-            color: 0x5a6a4a, 
-            size: 0.1,
-            transparent: true,
-            opacity: 0.3
+        bambooList.forEach((pos, i) => {
+            loadModel('Bamboo.glb', {x: pos[0], y: 0, z: pos[1]}, pos[2], i * 0.3);
         });
-        const moss = new THREE.Points(mossGeo, mossMat);
-        scene.add(moss);
 
-        // 4. SHAKKEI (préstamo de paisaje) - fondo de montañas simuladas
-        const mountainMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 1, emissive: 0x111111 });
-        
-        const mountain1 = new THREE.Mesh(new THREE.ConeGeometry(2, 3, 5), mountainMat);
-        mountain1.position.set(-8, -1, -12);
-        mountain1.rotation.y = 0.5;
-        scene.add(mountain1);
-        
-        const mountain2 = new THREE.Mesh(new THREE.ConeGeometry(1.8, 2.5, 5), mountainMat);
-        mountain2.position.set(5, -1, -13);
-        mountain2.rotation.y = 0.2;
-        scene.add(mountain2);
-        
-        const mountain3 = new THREE.Mesh(new THREE.ConeGeometry(1.5, 2, 5), mountainMat);
-        mountain3.position.set(-2, -1, -14);
-        scene.add(mountain3);
+        loadModel('Tree.glb', {x: -3.2, y: 0, z: 2.8}, 0.35);
+        loadModel('Tree.glb', {x: 3.5, y: 0, z: 2.5}, 0.3);
 
-        // 5. BORDE DE CUERDA (shimenawa) más delgada
-        const ropeRadius = 8.2;
-        const ropePoints = [];
-        for (let i = 0; i <= 64; i++) {
-            const angle = (i / 64) * Math.PI * 2;
-            ropePoints.push(new THREE.Vector3(
-                Math.cos(angle) * ropeRadius,
-                0.06,
-                Math.sin(angle) * ropeRadius
-            ));
-        }
+        const bushList = [
+            [-2.8, -3.2, 0.25], [3.0, -2.8, 0.3], [-1.5, 3.5, 0.2],
+            [2.0, 3.2, 0.25], [-3.5, 1.2, 0.2], [3.8, -1.5, 0.25]
+        ];
         
-        const ropeGeo = new THREE.BufferGeometry().setFromPoints(ropePoints);
-        const ropeMat = new THREE.LineBasicMaterial({ color: 0x6a5a4a });
-        const ropeLine = new THREE.Line(ropeGeo, ropeMat);
-        scene.add(ropeLine);
+        bushList.forEach(pos => {
+            loadModel('Bush.glb', {x: pos[0], y: 0, z: pos[1]}, pos[2]);
+        });
 
-        // Postes minimalistas
-        for (let i = 0; i < 12; i++) {
-            const angle = (i / 12) * Math.PI * 2;
-            const x = Math.cos(angle) * ropeRadius;
-            const z = Math.sin(angle) * ropeRadius;
+        // ============================================================
+        // EVENTOS RASTRILLO
+        // ============================================================
+        
+        renderer.domElement.addEventListener('mousedown', (event) => {
+            if (event.button !== 2) return;
+            event.preventDefault();
             
-            const postGeo = new THREE.CylinderGeometry(0.06, 0.08, 0.2, 4);
-            const postMat = new THREE.MeshStandardMaterial({ color: 0x6a5a4a });
-            const post = new THREE.Mesh(postGeo, postMat);
-            post.position.set(x, 0.1, z);
-            post.castShadow = true;
-            post.receiveShadow = true;
-            scene.add(post);
-        }
-
-        // --- POLEN SAGRADO (partículas casi imperceptibles) ---
-        const pollenGeo = new THREE.BufferGeometry();
-        const pollenCount = 80;
-        const pollenPositions = new Float32Array(pollenCount * 3);
-        
-        for (let i = 0; i < pollenCount; i++) {
-            pollenPositions[i * 3] = (Math.random() - 0.5) * 12;
-            pollenPositions[i * 3 + 1] = Math.random() * 4;
-            pollenPositions[i * 3 + 2] = (Math.random() - 0.5) * 12;
-        }
-        
-        pollenGeo.setAttribute('position', new THREE.BufferAttribute(pollenPositions, 3));
-        const pollenMat = new THREE.PointsMaterial({ 
-            color: 0xd8c8b0, 
-            size: 0.015,
-            transparent: true,
-            opacity: 0.15,
-            blending: THREE.AdditiveBlending
+            mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(groundObject);
+            
+            if (intersects.length > 0) {
+                isDragging = true;
+                controls.autoRotate = false;
+                statusIndicator.style.background = '#ffaa44';
+                
+                const point = intersects[0].point;
+                lastPos.x = 0;
+                lastPos.y = 0;
+                drawOnSand(point.x, point.z);
+            }
         });
-        const pollen = new THREE.Points(pollenGeo, pollenMat);
-        scene.add(pollen);
+        
+        window.addEventListener('mousemove', (event) => {
+            if (!isDragging) return;
+            
+            mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObject(groundObject);
+            
+            if (intersects.length > 0) {
+                drawOnSand(intersects[0].point.x, intersects[0].point.z);
+            }
+        });
+        
+        window.addEventListener('mouseup', (event) => {
+            if (event.button !== 2) return;
+            if (isDragging) {
+                isDragging = false;
+                controls.autoRotate = true;
+                statusIndicator.style.background = '#4a8f4a';
+                lastPos.x = 0;
+                lastPos.y = 0;
+            }
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                controls.autoRotate = true;
+                statusIndicator.style.background = '#4a8f4a';
+                lastPos.x = 0;
+                lastPos.y = 0;
+            }
+        });
+        
+        renderer.domElement.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        // --- ANIMACIÓN MEDITATIVA ---
+        // --- ANIMACIÓN ---
         function animate() {
             requestAnimationFrame(animate);
-            
-            // Movimiento casi imperceptible
-            const time = Date.now() * 0.0005;
-            pollen.rotation.y += 0.0002;
-            
             controls.update();
             renderer.render(scene, camera);
         }
 
         animate();
 
-        // --- RESIZE ---
-        window.addEventListener('resize', onWindowResize, false);
-        function onWindowResize() {
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        });
     </script>
 </body>
 </html>
